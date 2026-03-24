@@ -5,7 +5,7 @@ const sendEmail = async (email, otp) => {
     await axios.post(
       "https://api.brevo.com/v3/smtp/email",
       {
-        sender: { name: "Wellbeing App", email: "aditithakur16092003@gmail.com" },
+        sender: { name: "Wellbeing App", email: "noreply@wellbeing.brevo.com" },
         to: [{ email: email }],
         subject: "OTP Verification",
         textContent: `Your OTP is ${otp}`,
