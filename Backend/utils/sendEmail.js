@@ -1,28 +1,17 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (email, otp) => {
   try {
-
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      family: 4, // force IPv4
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASS
-      }
-    });
-
-    const info = await transporter.sendMail({
-      from: `"Wellbeing App" <${process.env.EMAIL}>`,
+    const { data, error } = await resend.emails.send({
+      from: "Wellbeing App <onboarding@resend.dev>",
       to: email,
       subject: "OTP Verification",
-      text: `Your OTP is ${otp}`
+      text: `Your OTP is ${otp}`,
     });
 
-    console.log("EMAIL SENT:", info.response);
-
+    if (error) throw error;
+    console.log("EMAIL SENT:", data);
   } catch (err) {
     console.log("EMAIL ERROR:", err);
     throw err;
