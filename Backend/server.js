@@ -11,7 +11,10 @@ const PORT = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://wellbeing-website-eight.vercel.app"
+    ],
     credentials: true
   })
 );
