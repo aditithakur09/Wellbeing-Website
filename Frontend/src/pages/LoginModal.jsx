@@ -21,7 +21,7 @@ function LoginModal({ onClose, onSuccess }) {
 
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:3000/api/auth/send-otp", {
+            const res = await fetch("https://wellbeing-website.onrender.com/api/auth/send-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email })
@@ -51,7 +51,7 @@ function LoginModal({ onClose, onSuccess }) {
 
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:3000/api/auth/verify-otp", {
+            const res = await fetch("https://wellbeing-website.onrender.com/api/auth/verify-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, otp })
