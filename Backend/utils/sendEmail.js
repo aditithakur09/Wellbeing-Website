@@ -1,17 +1,24 @@
-const { Resend } = require("resend");
-const resend = new Resend(process.env.RESEND_API_KEY);
+const nodemailer = require("nodemailer");
 
 const sendEmail = async (email, otp) => {
   try {
-    const { data, error } = await resend.emails.send({
-      from: "Wellbeing App <onboarding@resend.dev>",
+    const transporter = nodemailer.createTransport({
+      host: "smtp-relay.brevo.com",
+      port: 587,
+      auth: {
+        user: process.env.BREVO_USER,
+        pass: process.env.BREVO_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"Wellbeing App" <${process.env.BREVO_USER}>`,
       to: email,
       subject: "OTP Verification",
       text: `Your OTP is ${otp}`,
     });
 
-    if (error) throw error;
-    console.log("EMAIL SENT:", data);
+    console.log("EMAIL SENT SUCCESS");
   } catch (err) {
     console.log("EMAIL ERROR:", err);
     throw err;
