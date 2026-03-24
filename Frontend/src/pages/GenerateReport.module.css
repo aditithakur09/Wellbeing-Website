@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
+
+/* ── WRAPPER ── */
+.wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background: #12121a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle radial glow background */
+.wrapper::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── REPORT BOX ── */
+.reportBox {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+/* ── TITLE ── */
+.title {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Gold dot accent */
+.title::after {
+  content: ' ·';
+  color: #c9a84c;
+}
+
+/* ── SUBTITLE ── */
+.subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.875rem, 1.8vw, 1rem);
+  font-weight: 300;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* ── FORM AREA ── */
+.formArea {
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 60px 20px;
+  }
+
+  .title {
+    font-size: 1.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 48px 16px;
+  }
+}
