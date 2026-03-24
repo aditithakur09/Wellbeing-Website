@@ -1,26 +1,25 @@
-const nodemailer = require("nodemailer");
+const axios = require("axios");
 
 const sendEmail = async (email, otp) => {
   try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp-relay.brevo.com",
-      port: 587,
-      auth: {
-        user: process.env.BREVO_USER,
-        pass: process.env.BREVO_PASS,
+    await axios.post(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        sender: { name: "Wellbeing App", email: "aditithakur16092003@gmail.com" },
+        to: [{ email: email }],
+        subject: "OTP Verification",
+        textContent: `Your OTP is ${otp}`,
       },
-    });
-
-    await transporter.sendMail({
-      from: `"Wellbeing App" <${process.env.BREVO_USER}>`,
-      to: email,
-      subject: "OTP Verification",
-      text: `Your OTP is ${otp}`,
-    });
-
+      {
+        headers: {
+          "api-key": process.env.BREVO_API_KEY,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     console.log("EMAIL SENT SUCCESS");
   } catch (err) {
-    console.log("EMAIL ERROR:", err);
+    console.log("EMAIL ERROR:", err.response?.data || err.message);
     throw err;
   }
 };
