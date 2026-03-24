@@ -2,14 +2,12 @@ const nodemailer = require("nodemailer");
 
 const sendEmail = async (email, otp) => {
   try {
-    console.log("ENV EMAIL:", process.env.EMAIL);
-    console.log("ENV PASS:", process.env.EMAIL_PASS);
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      connectionTimeout: 10000,
+      port: 587,
+      secure: false,
+      family: 4, // force IPv4
       auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASS
@@ -23,19 +21,10 @@ const sendEmail = async (email, otp) => {
       text: `Your OTP is ${otp}`
     });
 
-    console.log("EMAIL SENT SUCCESS:", info.response);
+    console.log("EMAIL SENT:", info.response);
 
   } catch (err) {
-    console.log("EMAIL ERROR FULL:", err);
-
-    if (err.response) {
-      console.log("RESPONSE:", err.response);
-    }
-
-    if (err.code) {
-      console.log("ERROR CODE:", err.code);
-    }
-
+    console.log("EMAIL ERROR:", err);
     throw err;
   }
 };
